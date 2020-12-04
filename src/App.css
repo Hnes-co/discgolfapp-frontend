@@ -1,0 +1,170 @@
+.App {
+  height: 900px;
+  text-align: center;
+}
+
+
+
+.Navigation {
+  border-bottom: 2px solid antiquewhite;
+  height: 20%;
+  background-color: rgb(29, 30, 34);
+}
+
+.App-header {
+  background-color: #282c34;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 180%;
+  color: white;
+}
+
+.home-content {
+  padding: 2%;
+  font-size: 180%;
+}
+
+.home-header {
+  background-color: #282c34;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 220%;
+  color: white;
+}
+
+#Footer {
+  padding-top: 100px;
+  padding-bottom: 20px;
+}
+.scoreTable {
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2%;
+}
+#row-header {
+  padding-right: 5px;
+}
+.scoreDiv {
+  padding: 3%;
+}
+.scoreForm {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow-x: auto;
+}
+#courseInfo {
+  border-bottom: 1px solid black;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 30px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.scores {
+  margin-top: 5%;
+  padding: 3%;
+}
+
+.button1 {
+  margin: 1%;
+  background-color: darkgray; 
+  padding: 2%;
+  font-size: 100%;
+  color: black;
+  text-decoration: none;
+}
+.button1:hover {
+  background-color: gray;
+
+}
+
+#link {
+  color: rgb(41, 41, 41);
+  font-size: 150%;
+  text-decoration: none;
+}
+
+#link:hover {
+  
+  color: darkred;
+}
+.findcomps {
+  padding-bottom: 10%;
+}
+
+.button { 
+  display: inline-block;
+  padding: 2%;
+  font-size: 180%;
+  color: antiquewhite;
+  text-decoration: none;
+}
+a:hover {
+  color: darkred;
+}
+
+/*Sovelluksesta responsiivinen */
+
+@media only screen and (max-width: 915px) {
+  .Navigation {
+    height: auto;
+    border-bottom: none;
+  }
+
+  .home-header {
+    font-size: 180%;
+  }
+
+  .scores {
+    margin-top: 20%;
+  }
+
+  .button { 
+    border-bottom: 2px solid antiquewhite;
+    display: grid;
+    padding: 2%;
+  }
+}
+
+
+@media only screen and (max-width: 445px) {
+  .Navigation {
+    height: auto;
+    border-bottom: none;
+  }
+
+  .home-header {
+    font-size: 150%;
+  }
+
+  .App-header {
+    font-size: 130%;
+  }
+
+  .scores {
+    margin-top: 30%;
+  }
+  .button { 
+    border-bottom: 2px solid antiquewhite;
+    display: grid;
+    padding: 2%;
+  }
+
+  .button1 {
+    font-size: 127%;
+  }
+}
+
