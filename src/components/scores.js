@@ -46,7 +46,7 @@ const Form = (props) => {
                             </tbody>
                         </table>
                         </div>
-                    <button className="button1" type="submit">Save</button>
+                    <button className="saveButton" type="submit">Save</button>
                 </form>
             </div>
         )
@@ -59,7 +59,7 @@ const Notification = ({message}) => {
         return null
     }
     return (
-        <div className="error">
+        <div className="message">
           {message}
         </div>
     )
@@ -100,25 +100,46 @@ const Scores = () => {
     //lomakkeen tallennus
     const handleFormSubmit = (event) => {
         event.preventDefault()
+        let invalidInputs = false
 
-        // Radan tulokset on tallennettu olioon, jonka attribuutit ovat numeroitu 1....18/20, 
-        // haetaan attribuuttien eli object keysien määrä, 
-        // jolloin tiedetään, että lomakkeen kaikki kentät on täytetty, eikä niitä ole jätetty tyhjiksi.
-
-        if(Object.keys(score).length === 18 && newName !== '')
+        //Tarkistetaan ettei käyttäjä ole syöttänyt muita merkkejä kuin numeroita, eikä kenttiä ole jätetty tyhjäksi
+        if(newName === '' || Object.keys(score).length < 1) {
+            invalidInputs = true
+        }
+        for(let i = 0; i < Object.keys(score).length; i++)
         {
+            if(isNaN(parseInt(score[i])) || parseInt(score[i]) === 0 || score[i] === '')
+            {
+                invalidInputs = true
+            }
+        }
+
+        if(!invalidInputs)
+        {
+            let resultCourse
+            let toPar
+
             for(let i = 0; i < Object.keys(score).length; i++) // lasketaan kokonaistulos, eli olion jokaisen kentän arvot lasketaan yhteen
             {
-                total = total + parseInt(score[`${i}`])
+                total = total + parseInt(score[i])      
+            }
+            if(Object.keys(score).length === 18) {
+                resultCourse = courses[0].name
+                toPar = total - courses[0].parTotal
+            }
+            else {
+                resultCourse = courses[1].name
+                toPar = total - courses[1].parTotal
             }
             setCourseToShow([]) // kun tulokset on tallennettu, ei lomaketta haluta enää näyttää käyttäjälle, joten nollataan se.
             setScore({}) // nollataan myös tulokset
 
+
             const resultObject = { // luodaan tulosolio, joka voidaan lähettää tietokantaan.
                 name: newName,
-                course: courses[0].name,
+                course: resultCourse,
                 score: total,
-                toPar: total - courses[0].parTotal // lasketaan tuloksen ero radan Par:iin nähden
+                toPar: toPar // lasketaan tuloksen ero radan Par:iin nähden
             }
 
 
@@ -133,37 +154,9 @@ const Scores = () => {
                     }, 5000)
                 })
         }
-        else if(Object.keys(score).length === 20 && newName !== '') // samat kuin yllä, toiselle radalle
+        else // mikäli lomakkeen kenttiä jäi tyhjäksi, tai käyttäjä syötti muuta kuin numeroita, infotaan käyttäjää
         {
-            for(let i = 0; i < Object.keys(score).length; i++)
-            {
-                total = total + parseInt(score[`${i}`])
-            }
-            setCourseToShow([])
-            setScore({})
-
-            const resultObject = {
-                name: newName,
-                course: courses[1].name,
-                score: total, 
-                toPar: total - courses[1].parTotal
-            }
-
-            scoreService
-                .create(resultObject)
-                .then(returnedObject => {
-                    setResults(results.concat(returnedObject))
-                    total = 0
-                    setNewName('')
-                    setMessage('Score saved!')
-                    setTimeout(() => {
-                        setMessage(null)
-                    }, 5000)
-                })
-        }
-        else // mikäli lomakkeen kenttiä jäi tyhjäksi, infotaan käyttäjää
-        {
-            setMessage('You must fill all inputs before saving')
+            setMessage('Inputs cannot be empty and hole results must be numbers larger than 0!')
             setTimeout(() => {
                 setMessage(null)
             }, 5000)

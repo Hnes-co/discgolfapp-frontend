@@ -63,9 +63,9 @@
   border-bottom: 1px solid black;
 }
 
-.error {
+.message {
   color: red;
-  background: lightgrey;
+  background: lightgray;
   font-size: 30px;
   border-style: solid;
   border-radius: 5px;
@@ -80,13 +80,30 @@
 
 .button1 {
   margin: 1%;
-  background-color: darkgray; 
+  background-color: #282c34; 
+  border: 2px solid antiquewhite;
+  border-radius: 15px;
   padding: 2%;
   font-size: 100%;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 .button1:hover {
+  background-color: gray;
+
+}
+
+.saveButton {
+  margin: 1%;
+  background-color: #282c34; 
+  border: 2px solid antiquewhite;
+  border-radius: 15px;
+  padding: 2% 5% 2% 5%;
+  font-size: 100%;
+  color: white;
+  text-decoration: none;
+}
+.saveButton:hover {
   background-color: gray;
 
 }
@@ -164,6 +181,9 @@ a:hover {
   }
 
   .button1 {
+    font-size: 127%;
+  }
+  .saveButton {
     font-size: 127%;
   }
 }
