@@ -379,7 +379,7 @@ const Scores = () => {
                 <h3>Tampere Disc Golf Center</h3>
                     <div className="resultDiv">
                         <table className="resultTable">
-                            <tbody key>
+                            <tbody>
                                 <tr className="trow">
                                     <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{courses[0].holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
                                 </tr>
@@ -397,7 +397,7 @@ const Scores = () => {
                     <h3>Sahanmäki DiscGolfPark</h3>
                     <div className="resultDiv">
                         <table className="resultTable">
-                            <tbody key>
+                            <tbody>
                                 <tr className="trow">
                                     <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{courses[1].holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
                                 </tr>
