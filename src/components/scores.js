@@ -22,7 +22,7 @@ const Form = (props) => {
         return(
             <div className="scoreDiv">
                 <form onSubmit={props.handleFormSubmit}>
-                    Your name: <input value={props.newName} onChange={props.handleName} />
+                    Your name: <input value={props.newName} onChange={props.handleName} required/>
                         <div className="scoreForm">
                         <table className="scoreTable">
                             <tbody>
@@ -40,7 +40,7 @@ const Form = (props) => {
                             </tr>
                             <tr><td id="row-header">Result</td>
                                 {props.courseToShow.holes.map((hole, i) =>  
-                                    <td key={hole.id}> <input name={i} onChange={props.handleScore} size="2"/> </td>
+                                    <td key={hole.id}> <input name={i} onChange={props.handleScore} size="2" type="number" min="1" step="1" required/> </td>
                                 )}
                             </tr>
                             </tbody>
@@ -71,17 +71,19 @@ const Scores = () => {
     const [courseToShow, setCourseToShow] = useState([])
 
     const [score, setScore] = useState({})
-    const [results, setResults] = useState([])
     const [newName, setNewName] = useState('')
     const [message, setMessage] = useState(null)
     let total = 0
+    const [treResults, setTreResults] = useState([])
+    const [smResults, setSmResults] = useState([])
 
     // lähetetään axios-pyyntö MongoDB tietokantaan, haetaan tallennetut ratatulokset, asetetaan saapunut data tuloksiin
     useEffect(() => {
         scoreService
             .getAll()
             .then(initialScores => {
-                setResults(initialScores)
+                setTreResults(initialScores.filter(result => result.course === "Tampere Disc Golf Center (18 hole silver layout)"))
+                setSmResults(initialScores.filter(result => result.course === "Sahanmäki DiscGolfPark (20 hole 2020 layout)"))
             })
     }, [])
     const handleName = (event) => {
@@ -118,10 +120,12 @@ const Scores = () => {
         {
             let resultCourse
             let toPar
+            let scoreArray = []
 
             for(let i = 0; i < Object.keys(score).length; i++) // lasketaan kokonaistulos, eli olion jokaisen kentän arvot lasketaan yhteen
             {
-                total = total + parseInt(score[i])      
+                total = total + parseInt(score[i])
+                scoreArray.push({id: i + 1, result: parseInt(score[i])})        
             }
             if(Object.keys(score).length === 18) {
                 resultCourse = courses[0].name
@@ -131,28 +135,42 @@ const Scores = () => {
                 resultCourse = courses[1].name
                 toPar = total - courses[1].parTotal
             }
+
             setCourseToShow([]) // kun tulokset on tallennettu, ei lomaketta haluta enää näyttää käyttäjälle, joten nollataan se.
             setScore({}) // nollataan myös tulokset
 
-
+            let d = new Date()
+            let time = d.getDate() + '/' + d.getMonth() + 1 + '/' + d.getFullYear()
             const resultObject = { // luodaan tulosolio, joka voidaan lähettää tietokantaan.
                 name: newName,
                 course: resultCourse,
                 score: total,
-                toPar: toPar // lasketaan tuloksen ero radan Par:iin nähden
+                toPar: toPar,
+                results: scoreArray,
+                time: time,
             }
 
 
             scoreService // lähetetään tallennettu tulosolio tietokantaan, ja tallennetaan vastauksessa sama olio tuloksiin, jotka näytetään ruudulla.
                 .create(resultObject) 
                 .then(returnedObject => {
-                    setResults(results.concat(returnedObject))
+                    if(returnedObject.course === "Tampere Disc Golf Center (18 hole silver layout)")
+                    {
+                        setTreResults(treResults.concat(returnedObject))
+                    }
+                    else
+                    {
+                        setSmResults(smResults.concat(returnedObject))
+                    }
                     total = 0
+                    scoreArray = []
                     setMessage('Score saved!')
                     setTimeout(() => {
                         setMessage(null)
                     }, 5000)
                 })
+
+            
         }
         else // mikäli lomakkeen kenttiä jäi tyhjäksi, tai käyttäjä syötti muuta kuin numeroita, infotaan käyttäjää
         {
@@ -339,6 +357,8 @@ const Scores = () => {
         setCourseToShow(courses.find(course => course.id === id))
     }
 
+    
+
     return(
         <div>
             <header className="App-header">
@@ -355,8 +375,43 @@ const Scores = () => {
                 <Form courseToShow={courseToShow} newName={newName} handleName={handleName} handleScore={handleScore} handleFormSubmit={handleFormSubmit} />
             </div>
             <div className="scores">
-                <h3>Player Scores: </h3>
-                {results.map(result => <p key={result.id}>Player: {result.name}, Course: {result.course}, Score: {result.score}, To par: {result.toPar} </p>)}
+                <h2>Player Scores: </h2>
+                <h3>Tampere Disc Golf Center</h3>
+                    <div className="resultDiv">
+                        <table className="resultTable">
+                            <tbody key>
+                                <tr className="trow">
+                                    <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{courses[0].holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
+                                </tr>
+                                <tr>
+                                    <td> </td><td>  </td><td id="cell2">Par: </td>{courses[0].holes.map(hole => <td key={hole.id}>{hole.par}</td>)}<td> </td>
+                                </tr>
+                                {treResults.map(result => 
+                                <tr key={result.id} className="trow">
+                                    <td id="cell1">{result.name}</td><td id="cell1">{result.time}</td><td id="cell2">Result: </td>{result.results.map(result => <td key={result.id} id="tdresult">{result.result}</td>)}<td> {result.toPar} </td>
+                                </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3>Sahanmäki DiscGolfPark</h3>
+                    <div className="resultDiv">
+                        <table className="resultTable">
+                            <tbody key>
+                                <tr className="trow">
+                                    <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{courses[1].holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
+                                </tr>
+                                <tr>
+                                    <td> </td><td>  </td><td id="cell2">Par: </td>{courses[1].holes.map(hole => <td key={hole.id}>{hole.par}</td>)}<td> </td>
+                                </tr>
+                                {smResults.map(result => 
+                                <tr key={result.id} className="trow">
+                                    <td id="cell1">{result.name}</td><td id="cell1">{result.time}</td><td id="cell2">Result: </td>{result.results.map(result => <td id="tdresult" key={result.id}>{result.result}</td>)}<td> {result.toPar} </td>
+                                </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
             </div>
             <div id="Footer">
                 <p>Scores are saved to MongoDB Atlas</p>

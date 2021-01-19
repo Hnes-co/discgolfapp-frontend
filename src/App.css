@@ -3,6 +3,19 @@
   text-align: center;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 
 
 .Navigation {
@@ -59,23 +72,60 @@
   padding-bottom: 20px;
   overflow-x: auto;
 }
+.resultDiv {
+  padding: 1%;
+  overflow-x: auto;
+}
+.resultTable {
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1%;
+  table-layout: fixed;
+}
+.resultTable th, .resultTable td {
+  min-width: 35px;
+  padding: 2px;
+}
+
+#cell1 {
+  padding-right: 30px;
+}
+
+#cell2 {
+  padding-right: 10px;
+}
+
+
+#tdresult {
+  border: 1px solid black;
+}
+
 #courseInfo {
   border-bottom: 1px solid black;
 }
 
 .message {
-  color: red;
+  margin-left: auto;
+  margin-right: auto;
+  color: green;
   background: lightgray;
   font-size: 30px;
+  width: 40%;
   border-style: solid;
+  border-width: 5px;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 10px;
 }
 
 .scores {
   margin-top: 5%;
   padding: 3%;
+}
+
+.scores h2 {
+  padding-bottom: 5%;
 }
 
 .button1 {
@@ -154,6 +204,10 @@ a:hover {
     display: grid;
     padding: 2%;
   }
+
+  #cell1 {
+    padding-right: 20px;
+  }
 }
 
 
@@ -185,6 +239,10 @@ a:hover {
   }
   .saveButton {
     font-size: 127%;
+  }
+
+  #cell1 {
+    padding-right: 5px;
   }
 }
 
