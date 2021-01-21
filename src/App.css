@@ -1,6 +1,17 @@
+body {
+  background-image: url("images/dgapp-background6.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .App {
-  height: 900px;
+  background-color: whitesmoke;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
   text-align: center;
+  border: 2px solid antiquewhite;
+  border-radius: 0px 0px 20px 20px;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -71,6 +82,57 @@ input[type=number] {
   padding-top: 20px;
   padding-bottom: 20px;
   overflow-x: auto;
+}
+.addNewCourse {
+  padding-top: 8%;
+}
+.scoreOverflow {
+  overflow-x: auto;
+}
+.addCourse {
+  padding: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+.addLabel {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  padding: 20px;
+  font-size: 18px;
+  background-color: #282c34; 
+  color: white;
+  border: 5px solid antiquewhite;
+  border-radius: 15px;
+}
+.addLabel label {
+  padding: 10px;
+}
+#holeInput {
+  width: 40px;
+}
+#nameInput {
+  width: 40%;
+}
+.addLabel input {
+  font-size: 18px;
+}
+
+
+
+.addButton {
+  margin: 1%;
+  background-color: #282c34; 
+  border: 2px solid antiquewhite;
+  border-radius: 15px;
+  padding: 2% 6% 2% 6%;
+  font-size: 100%;
+  color: white;
+}
+.addButton:hover {
+  background-color: gray;
+
 }
 
 #resultInput {
@@ -191,6 +253,15 @@ a:hover {
 /*Sovelluksesta responsiivinen */
 
 @media only screen and (max-width: 915px) {
+
+  body {
+    background: none;
+  }
+
+  .App {
+    width: 100%;
+  }
+
   .Navigation {
     height: auto;
     border-bottom: none;
@@ -217,6 +288,8 @@ a:hover {
 
 
 @media only screen and (max-width: 445px) {
+
+  
   .Navigation {
     height: auto;
     border-bottom: none;

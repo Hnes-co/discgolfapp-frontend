@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'https://agile-headland-07227.herokuapp.com/api/results'  // Backend on internetissä herokun kautta
+const baseUrl = 'http://localhost:3001/api/courses'  // Backend on internetissä herokun kautta
 
 const getAll = () => { // funktio ratatulosten hakemista varten
   const request = axios.get(baseUrl)
@@ -12,7 +12,8 @@ const create = newObject => { // funktio uuden ratatuloksen lähettämiseen
 }
 
 const update = (id, newObject) => {
-  return axios.put(`${baseUrl}/${id}`, newObject)
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then(response => response.data)
 }
 
 

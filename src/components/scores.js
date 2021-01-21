@@ -47,6 +47,7 @@ const Form = (props) => {
                         </table>
                         </div>
                     <button className="saveButton" type="submit">Save</button>
+                    <button className="saveButton" onClick={props.resetCourseToShow} >Cancel</button>
                 </form>
             </div>
         )
@@ -85,20 +86,22 @@ const NextClick = (props) => {
     return (
         <>
             <form onSubmit={props.handleAddNewFormSubmit}>
-            <table className="scoreTable">
-            <tbody>
-                <tr><th id="row-header">Hole</th>
-                    {holesArray.map(hole =>  
-                    <th key={hole.id}> {hole.id} </th>
-                    )}
-                </tr>
-                <tr><td id="row-header">Par: </td>
-                    {holesArray.map((hole, i) =>  
-                    <td key={hole.id}> <input name={i} onChange={props.handleHolePar} size="2" type="number" min="1" step="1" required/> </td>
-                    )}
-                </tr>
-            </tbody>
-            </table>
+            <div className="scoreOverflow">
+                <table className="scoreTable">
+                <tbody>
+                    <tr><th id="row-header">Hole</th>
+                        {holesArray.map(hole =>  
+                        <th key={hole.id}> {hole.id} </th>
+                        )}
+                    </tr>
+                    <tr><td id="row-header">Par: </td>
+                        {holesArray.map((hole, i) =>  
+                        <td key={hole.id}> <input name={i} onChange={props.handleHolePar} size="2" type="number" min="1" step="1" required/> </td>
+                        )}
+                    </tr>
+                </tbody>
+                </table>
+            </div>
             <button className="saveButton" type="submit">Save</button>
             <button className="saveButton" onClick={props.resetNewCourseAdd} >Cancel</button>
             </form>
@@ -123,7 +126,7 @@ const NewCourseForm = (props) => {
     }
     if(!props.showFirstForm) {
         return (
-            <div>
+            <div className="addCourse">
                 <h3>Please give par values for {props.newCourseName}</h3>
                 <NextClick clickedNext={props.clickedNext} handleAddNew={props.handleAddNew} newHoleAmount={props.newHoleAmount} 
                 handleHolePar={props.handleHolePar} handleAddNewFormSubmit={props.handleAddNewFormSubmit} resetNewCourseAdd={props.resetNewCourseAdd} />
@@ -131,12 +134,16 @@ const NewCourseForm = (props) => {
         )
     }
     return (
-        <div>
+        <div className="addCourse">
             <form onSubmit={props.handleNextClick}>
-                <label>Course name: </label><input value={props.newCourseName} onChange={props.handleCourseName} required/>
-                <label>Number of holes:  </label><input value={props.newHoleAmount} onChange={props.handleHoleAmount} type="number" min="1" max="30" step="1" required />
-                <button  type="submit">Next</button>
-                <button onClick={props.resetNewCourseAdd} >Cancel</button>
+                <div className="addLabel">
+                <label>Course name: </label><input id="nameInput" value={props.newCourseName} onChange={props.handleCourseName} required/>
+                </div>
+                <div className="addLabel">
+                <label>Number of holes:  </label><input id="holeInput" value={props.newHoleAmount} onChange={props.handleHoleAmount} type="number" min="1" max="30" step="1" required />
+                </div>
+                <button type="submit" className="addButton">Next</button>
+                <button onClick={props.resetNewCourseAdd} className="addButton">Cancel</button>
             </form>
         </div>
     )
@@ -145,174 +152,7 @@ const NewCourseForm = (props) => {
 
 
 const Scores = () => {
-    const [courses, setCourses] = useState([
-        {
-            name: "Tampere Disc Golf Center (18 hole silver layout)",
-            id: 1,
-            parTotal: 59,
-            holes: [
-                {
-                    id: 1,
-                    par: 3
-                },
-                {
-                    id: 2,
-                    par: 3
-                },
-                {
-                    id: 3,
-                    par: 3
-                },
-                {
-                    id: 4,
-                    par: 3
-                },
-                {
-                    id: 5,
-                    par: 3
-                },
-                {
-                    id: 6,
-                    par: 4
-                },
-                {
-                    id: 7,
-                    par: 3
-                },
-                {
-                    id: 8,
-                    par: 3
-                },
-                {
-                    id: 9,
-                    par: 3
-                },
-                {
-                    id: 10,
-                    par: 4
-                },
-                {
-                    id: 11,
-                    par: 3
-                },
-                {
-                    id: 12,
-                    par: 3
-                },
-                {
-                    id: 13,
-                    par: 4
-                },
-                {
-                    id: 14,
-                    par: 4
-                },
-                {
-                    id: 15,
-                    par: 3
-                },
-                {
-                    id: 16,
-                    par: 4
-                },
-                {
-                    id: 17,
-                    par: 3
-                },
-                {
-                    id: 18,
-                    par: 3
-                },
-            ]
-        },
-        {
-            name: "Sahanmäki DiscGolfPark (20 hole 2020 layout)",
-            id: 2,
-            parTotal: 63,
-            holes: [
-                {
-                    id: 1,
-                    par: 3
-                },
-                {
-                    id: 2,
-                    par: 3
-                },
-                {
-                    id: 3,
-                    par: 3
-                },
-                {
-                    id: 4,
-                    par: 4
-                },
-                {
-                    id: 5,
-                    par: 3
-                },
-                {
-                    id: 6,
-                    par: 3
-                },
-                {
-                    id: 7,
-                    par: 3
-                },
-                {
-                    id: 8,
-                    par: 3
-                },
-                {
-                    id: 9,
-                    par: 3
-                },
-                {
-                    id: 10,
-                    par: 3
-                },
-                {
-                    id: 11,
-                    par: 4
-                },
-                {
-                    id: 12,
-                    par: 3
-                },
-                {
-                    id: 13,
-                    par: 3
-                },
-                {
-                    id: 14,
-                    par: 3
-                },
-                {
-                    id: 15,
-                    par: 3
-                },
-                {
-                    id: 16,
-                    par: 4
-                },
-                {
-                    id: 17,
-                    par: 3
-                },
-                {
-                    id: 18,
-                    par: 3
-                },
-                {
-                    id: 19,
-                    par: 3
-                },
-                {
-                    id: 20,
-                    par: 3
-                },
-            ]
-        },
-    ])
+    const [courses, setCourses] = useState([])
 
     const [courseToShow, setCourseToShow] = useState([])
     const [showAddNew, setShowAddNew] = useState(false)
@@ -329,16 +169,14 @@ const Scores = () => {
     
     const [message, setMessage] = useState(null)
     let total = 0
-    const [treResults, setTreResults] = useState([])
-    const [smResults, setSmResults] = useState([])
 
-    // lähetetään axios-pyyntö MongoDB tietokantaan, haetaan tallennetut ratatulokset, asetetaan saapunut data tuloksiin
+
+    // lähetetään axios-pyyntö MongoDB tietokantaan, haetaan tallennetut radat, asetetaan saapunut data courses - taulukkoon
     useEffect(() => {
         scoreService
             .getAll()
-            .then(initialScores => {
-                setTreResults(initialScores.filter(result => result.course === "Tampere Disc Golf Center (18 hole silver layout)"))
-                setSmResults(initialScores.filter(result => result.course === "Sahanmäki DiscGolfPark (20 hole 2020 layout)"))
+            .then(initialCourses => {
+                setCourses(initialCourses)
             })
     }, [])
     const handleName = (event) => {
@@ -393,7 +231,6 @@ const Scores = () => {
 
         if(!invalidInputs)
         {
-            let resultCourse
             let toPar
             let scoreArray = []
 
@@ -402,47 +239,36 @@ const Scores = () => {
                 total = total + parseInt(score[i])
                 scoreArray.push({id: i + 1, result: parseInt(score[i])})        
             }
-            if(Object.keys(score).length === 18) {
-                resultCourse = courses[0].name
-                toPar = total - courses[0].parTotal
-            }
-            else {
-                resultCourse = courses[1].name
-                toPar = total - courses[1].parTotal
-            }
-
-            setCourseToShow([]) // kun tulokset on tallennettu, ei lomaketta haluta enää näyttää käyttäjälle, joten nollataan se.
-            setScore({}) // nollataan myös tulokset
+            toPar = total - courseToShow.parTotal
 
             let d = new Date()
             let time = d.getDate() + '/' + d.getMonth() + 1 + '/' + d.getFullYear()
             const resultObject = { // luodaan tulosolio, joka voidaan lähettää tietokantaan.
                 name: newName,
-                course: resultCourse,
                 score: total,
                 toPar: toPar,
                 results: scoreArray,
                 time: time,
             }
 
+            const changedCourse = courses.find(c => c.name === courseToShow.name)
+            changedCourse.results.push(resultObject)
+
+            setCourseToShow([]) // kun tulokset on tallennettu, ei lomaketta haluta enää näyttää käyttäjälle, joten nollataan se.
+            setScore({}) // nollataan myös tulokset
+
 
             scoreService // lähetetään tallennettu tulosolio tietokantaan, ja tallennetaan vastauksessa sama olio tuloksiin, jotka näytetään ruudulla.
-                .create(resultObject) 
-                .then(returnedObject => {
-                    if(returnedObject.course === "Tampere Disc Golf Center (18 hole silver layout)")
-                    {
-                        setTreResults(treResults.concat(returnedObject))
-                    }
-                    else
-                    {
-                        setSmResults(smResults.concat(returnedObject))
-                    }
+                .update(changedCourse.id, changedCourse) 
+                .then(returnedCourse => {
+                    setCourses(courses.map(course => course.id !== changedCourse.id ? course : returnedCourse))
                     total = 0
                     scoreArray = []
                     setMessage('Score saved!')
                     setTimeout(() => {
                         setMessage(null)
                     }, 5000)
+                    setCourseChosen(false)
                 })
 
             
@@ -479,24 +305,31 @@ const Scores = () => {
         }
         const newCourseObject = {
             name: newCourseName,
-            id: courses.length + 1,
             parTotal: newCourseParTotal,
-            holes: holesArray
+            holes: holesArray,
+            results: []
         }
-        setCourses(courses.concat(newCourseObject))
-        console.log(courses)
-        resetNewCourseAdd()
-        setMessage('New course added!')
-            setTimeout(() => {
-                setMessage(null)
-                        
-            }, 5000)
+        scoreService
+            .create(newCourseObject)
+            .then(returnedCourse => {
+                setCourses(courses.concat(returnedCourse))
+                resetNewCourseAdd()
+                setMessage('New course added!')
+                setTimeout(() => {
+                    setMessage(null)
+                }, 5000)
+            })
+        
+        
         
     }
 
 
 
-
+    const resetCourseToShow = () => {
+        setCourseToShow([])
+        setCourseChosen(false)
+    }
     const handleCourseToShow = (id) => {
         setCourseToShow(courses.find(course => course.id === id))
         setCourseChosen(true)
@@ -513,7 +346,7 @@ const Scores = () => {
                 <h2>Choose course</h2>
                 {courses.map(course => <button className="button1" key={course.id} onClick={() => handleCourseToShow(course.id)}> {course.name} </button>)}
             </div>
-            <div>
+            <div className="addNewCourse">
                 <NewCourseForm courseChosen={courseChosen} showAddNew={showAddNew} handleAddNew={handleAddNew} newCourseName={newCourseName} newHoleAmount={newHoleAmount} 
                 handleCourseName={handleCourseName} handleHoleAmount={handleHoleAmount} handleNextClick={handleNextClick} clickedNext={clickedNext} 
                 handleHolePar={handleCourseHoles} handleAddNewFormSubmit={handleAddNewFormSubmit} showFirstForm={showFirstForm} resetNewCourseAdd={resetNewCourseAdd} />
@@ -522,17 +355,15 @@ const Scores = () => {
                 <Notification message={message} />
             </div>
             <div>
-                <Form courseToShow={courseToShow} newName={newName} handleName={handleName} handleScore={handleScore} handleFormSubmit={handleFormSubmit} />
+                <Form courseToShow={courseToShow} resetCourseToShow={resetCourseToShow} newName={newName} handleName={handleName} handleScore={handleScore} handleFormSubmit={handleFormSubmit} />
             </div>
             <div className="scores">
-                {/* 
                 <h2>Player Scores: </h2>
-                <div>
                     {courses.map(course =>
-                        <div>
+                        <div key={course.id}>
                             <h3>{course.name}</h3>
-                            <div>
-                            <table>
+                            <div className="resultDiv">
+                            <table className="resultTable">
                                 <tbody>
                                     <tr className="trow">
                                         <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{course.holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
@@ -540,56 +371,19 @@ const Scores = () => {
                                     <tr>
                                         <td> </td><td>  </td><td id="cell2">Par: </td>{course.holes.map(hole => <td key={hole.id}>{hole.par}</td>)}<td> </td>
                                     </tr>
+                                    {course.results.map((result, i) => 
+                                    <tr key={i} className="trow">
+                                        <td id="cell1">{result.name}</td><td id="cell1">{result.time}</td><td id="cell2">Result: </td>{result.results.map(result => <td key={result.id} id="tdresult">{result.result}</td>)}<td> {result.toPar} </td>
+                                    </tr>
+                                    )}
                                 </tbody>
                             </table>
                             </div>
                         </div>
                     )}
-                </div>
-                */}
-
-
-
-
-                <h3>Tampere Disc Golf Center</h3>
-                    <div className="resultDiv">
-                        <table className="resultTable">
-                            <tbody>
-                                <tr className="trow">
-                                    <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{courses[0].holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
-                                </tr>
-                                <tr>
-                                    <td> </td><td>  </td><td id="cell2">Par: </td>{courses[0].holes.map(hole => <td key={hole.id}>{hole.par}</td>)}<td> </td>
-                                </tr>
-                                {treResults.map(result => 
-                                <tr key={result.id} className="trow">
-                                    <td id="cell1">{result.name}</td><td id="cell1">{result.time}</td><td id="cell2">Result: </td>{result.results.map(result => <td key={result.id} id="tdresult">{result.result}</td>)}<td> {result.toPar} </td>
-                                </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                    <h3>Sahanmäki DiscGolfPark</h3>
-                    <div className="resultDiv">
-                        <table className="resultTable">
-                            <tbody>
-                                <tr className="trow">
-                                    <th id="cell1">Player</th><th id="cell1">Date</th><th id="cell2">Hole:</th>{courses[1].holes.map(hole => <th key={hole.id}>{hole.id}</th>)}<th>To par</th>
-                                </tr>
-                                <tr>
-                                    <td> </td><td>  </td><td id="cell2">Par: </td>{courses[1].holes.map(hole => <td key={hole.id}>{hole.par}</td>)}<td> </td>
-                                </tr>
-                                {smResults.map(result => 
-                                <tr key={result.id} className="trow">
-                                    <td id="cell1">{result.name}</td><td id="cell1">{result.time}</td><td id="cell2">Result: </td>{result.results.map(result => <td id="tdresult" key={result.id}>{result.result}</td>)}<td> {result.toPar} </td>
-                                </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
             </div>
             <div id="Footer">
-                <p>Scores are saved to MongoDB Atlas</p>
+                <p>Courses and results are saved to MongoDB Atlas</p>
             </div>
         </div>
     )
