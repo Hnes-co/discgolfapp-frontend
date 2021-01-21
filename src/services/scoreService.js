@@ -11,6 +11,10 @@ const create = newObject => { // funktio uuden ratatuloksen lähettämiseen
   return request.then(response => response.data)
 }
 
+const update = (id, newObject) => {
+  return axios.put(`${baseUrl}/${id}`, newObject)
+}
 
 
-export default { getAll, create }
+
+export default { getAll, create, update }

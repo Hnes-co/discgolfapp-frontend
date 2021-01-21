@@ -72,6 +72,11 @@ input[type=number] {
   padding-bottom: 20px;
   overflow-x: auto;
 }
+
+#resultInput {
+  width: 35px;
+}
+
 .resultDiv {
   padding: 1%;
   overflow-x: auto;
