@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/courses'  // Backend on internetissä herokun kautta
+const baseUrl = '/api/courses'  // Backend on internetissä herokun kautta
 
 const getAll = () => { // funktio ratatulosten hakemista varten
   const request = axios.get(baseUrl)
