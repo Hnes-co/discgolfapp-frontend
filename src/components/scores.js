@@ -40,7 +40,7 @@ const Form = (props) => {
                             </tr>
                             <tr><td id="row-header">Result</td>
                                 {props.courseToShow.holes.map((hole, i) =>  
-                                    <td key={hole.id}> <input id="resultInput" name={i} onChange={props.handleScore} type="number" min="1" step="1" required/> </td>
+                                    <td key={hole.id}> <input id="resultInput" name={i} onChange={props.handleScore} type="number" min="1" max="100" step="1" required/> </td>
                                 )}
                             </tr>
                             </tbody>
@@ -96,7 +96,7 @@ const NextClick = (props) => {
                     </tr>
                     <tr><td id="row-header">Par: </td>
                         {holesArray.map((hole, i) =>  
-                        <td key={hole.id}> <input name={i} onChange={props.handleHolePar} size="2" type="number" min="1" step="1" required/> </td>
+                        <td key={hole.id}> <input id="parInput" name={i} onChange={props.handleHolePar} type="number" min="1" max="5" step="1" required/> </td>
                         )}
                     </tr>
                 </tbody>

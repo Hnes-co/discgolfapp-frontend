@@ -109,6 +109,10 @@ input[type=number] {
 .addLabel label {
   padding: 10px;
 }
+#parInput {
+  width: 35px;
+}
+
 #holeInput {
   width: 40px;
 }
