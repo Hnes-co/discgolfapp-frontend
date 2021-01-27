@@ -37,7 +37,6 @@ input[type=number] {
 
 .App-header {
   background-color: #282c34;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,6 +49,7 @@ input[type=number] {
   padding: 2%;
   font-size: 180%;
 }
+
 
 .home-header {
   background-color: #282c34;
@@ -200,6 +200,7 @@ input[type=number] {
 }
 
 .button1 {
+  width: 35%;
   margin: 1%;
   background-color: #282c34; 
   border: 2px solid antiquewhite;
@@ -256,6 +257,34 @@ a:hover {
 
 /*Sovelluksesta responsiivinen */
 
+@media only screen and (max-width: 1400px) {
+
+  .button1 {
+    font-size: 90%;
+  }
+  
+}
+
+@media only screen and (max-width: 1200px) {
+
+  .button1 {
+    width: 40%;
+  }
+  .App-header {
+    padding: 2%;
+  }
+  
+}
+
+@media only screen and (max-width: 1040px) {
+
+  .button1 {
+    width: 80%;
+  }
+  
+}
+
+
 @media only screen and (max-width: 915px) {
 
   body {
@@ -263,7 +292,7 @@ a:hover {
   }
 
   .App {
-    width: 100%;
+    width: auto;
   }
 
   .Navigation {
@@ -274,6 +303,10 @@ a:hover {
   .home-header {
     font-size: 180%;
   }
+  .App-header {
+    font-size: 130%;
+  }
+
 
   .scores {
     margin-top: 20%;
@@ -303,9 +336,6 @@ a:hover {
     font-size: 150%;
   }
 
-  .App-header {
-    font-size: 130%;
-  }
 
   .scores {
     margin-top: 30%;
@@ -317,7 +347,8 @@ a:hover {
   }
 
   .button1 {
-    font-size: 127%;
+    padding: 3%;
+    font-size: 80%;
   }
   .saveButton {
     font-size: 127%;
@@ -326,5 +357,13 @@ a:hover {
   #cell1 {
     padding-right: 5px;
   }
+}
+
+@media only screen and (max-width: 375px) {
+
+  .button1 {
+    height: 50px;
+  }
+  
 }
 

@@ -11,7 +11,7 @@ const Home = () => { // SPA:n kotisivu
                 <h1>Welcome to Disc Golf SPA</h1>
             </header>
             <div className="home-content">
-                This is the home page for the disc golf app. 
+                Hello! This is the home page for the disc golf app. 
                 Use the navigation bar above to browse the site.
             </div>
             <div id="Footer">

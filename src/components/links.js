@@ -7,7 +7,7 @@ const Links = () => {
     return(
         <div>
             <header className="App-header">
-                <h1>Some useful links</h1>
+                <h1>Links for disc golfers</h1>
             </header>
             <div className="buydiscs">
                 <h2>Buy discs, bags and other accessories</h2>

@@ -22,7 +22,8 @@ const Form = (props) => {
         return(
             <div className="scoreDiv">
                 <form onSubmit={props.handleFormSubmit}>
-                    Your name: <input value={props.newName} onChange={props.handleName} required/>
+                <h3> {props.courseToShow.name} </h3>
+                    Your name: <input value={props.newName} onChange={props.handleName} required maxLength="30"/>
                         <div className="scoreForm">
                         <table className="scoreTable">
                             <tbody>
@@ -120,7 +121,7 @@ const NewCourseForm = (props) => {
         return (
             <>
                 <h3> Can't find the course/layout you're looking for? Add a new course! </h3>
-                <button className="button1" onClick={props.handleAddNew} >Add new</button>
+                <button className="addButton" onClick={props.handleAddNew} >Add new</button>
             </>
         )
     }
@@ -137,7 +138,7 @@ const NewCourseForm = (props) => {
         <div className="addCourse">
             <form onSubmit={props.handleNextClick}>
                 <div className="addLabel">
-                <label>Course name: </label><input id="nameInput" value={props.newCourseName} onChange={props.handleCourseName} required/>
+                <label>Course name: </label><input id="nameInput" value={props.newCourseName} onChange={props.handleCourseName} maxLength="50" required/>
                 </div>
                 <div className="addLabel">
                 <label>Number of holes:  </label><input id="holeInput" value={props.newHoleAmount} onChange={props.handleHoleAmount} type="number" min="1" max="30" step="1" required />
@@ -329,13 +330,14 @@ const Scores = () => {
     const resetCourseToShow = () => {
         setCourseToShow([])
         setCourseChosen(false)
+        resetNewCourseAdd()
     }
     const handleCourseToShow = (id) => {
         setCourseToShow(courses.find(course => course.id === id))
         setCourseChosen(true)
     }
 
-    
+    const resultsToShow = courses.filter(course => course.results.length !== 0)
 
     return(
         <div>
@@ -359,7 +361,7 @@ const Scores = () => {
             </div>
             <div className="scores">
                 <h2>Player Scores: </h2>
-                    {courses.map(course =>
+                    {resultsToShow.map(course =>
                         <div key={course.id}>
                             <h3>{course.name}</h3>
                             <div className="resultDiv">

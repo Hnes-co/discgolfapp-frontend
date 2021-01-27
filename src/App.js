@@ -45,7 +45,7 @@ const App = () => {
             <Link className="button" to="/">Home</Link>
             <Link className="button" to="/courses" onClick={handleCourses}>Browse courses in Finland</Link>
             <Link className="button" to="/scores">Save your rounds </Link>
-            <Link className="button" to="/links">Useful links</Link>
+            <Link className="button" to="/links">Disc Golf Stuff</Link>
         </div>
         <div className="content">
           <Switch>
